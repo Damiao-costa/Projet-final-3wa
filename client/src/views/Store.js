@@ -1,4 +1,5 @@
 import React from 'react';
+
 class App extends React.Component{
     constructor(props){
         super(props);
@@ -7,7 +8,8 @@ class App extends React.Component{
     callAPI(){
         fetch("http://127.0.0.1:5000/data")
             .then(res => res.json())
-            .then(res => this.setState({apiResponse: res}))   
+            .then(res => this.setState({apiResponse: res}))
+              
     }
 
     componentDidMount()
@@ -18,8 +20,9 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
+                <h1>Store page</h1>
+                <h2>Products list:</h2>
                 <ul>
-                    
                 {this.state.apiResponse.map((object)=>{
                     let name = 
                     <li key={object.ListId}>Name: {object.Name} 
