@@ -7,6 +7,7 @@ router.get("/",function(req,res,next){
     res.send("Api is working");
 });
 
+
 router.get('/data',storeController.catalogue);
 
 router.get('/signup',authController.signup_get);

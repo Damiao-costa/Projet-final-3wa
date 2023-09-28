@@ -26,11 +26,15 @@ function App() {
         case "/store":
             component = <Store />
             break
+        default:
+            component = <Home />
     }
     return (
         <>
             <Navbar />
-            {component}
+            <div className="component">
+                {component}
+            </div>
        </>
         )
 }

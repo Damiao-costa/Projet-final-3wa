@@ -18,11 +18,11 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
-                <ul>
-                    
+                <h1>Welcome to my store</h1>
+                <ul className="catalogue">
                 {this.state.apiResponse.map((object)=>{
                     let name = 
-                    <li key={object.ListId}>Name: {object.Name} 
+                    <li key={object.ListId} className='product'>Name: {object.Name} 
                         <br></br>Price: {object.Price}
                         <br></br>Stock: {object.Stock} 
                         <br></br>Description: {object.Description}

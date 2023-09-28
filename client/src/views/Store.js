@@ -20,12 +20,11 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
-                <h1>Store page</h1>
-                <h2>Products list:</h2>
-                <ul>
+                <h1>Here Is The Catalogue</h1>
+                <ul className="catalogue">
                 {this.state.apiResponse.map((object)=>{
                     let name = 
-                    <li key={object.ListId}>Name: {object.Name} 
+                    <li key={object.ListId} className='product'>Name: {object.Name} 
                         <br></br>Price: {object.Price}
                         <br></br>Stock: {object.Stock} 
                         <br></br>Description: {object.Description}
