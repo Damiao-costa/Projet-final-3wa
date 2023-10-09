@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "64a7e38c6631515b2a206531"
+  },
+  "Name": "Product 1",
+  "Price": 3,
+  "Stock": 4,
+  "Description": "first product of the store"
+},
+{
+  "_id": {
+    "$oid": "6512e7975a6ddb6f7fb0bb0b"
+  },
+  "Name": "Product 2",
+  "Price": 23,
+  "Stock": 4,
+  "Description": "second product of the store"
+}]
