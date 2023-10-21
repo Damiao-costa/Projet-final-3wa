@@ -1,5 +1,6 @@
 # Projet-final-3wa
-Projet final: Magazin en ligne avec 3 interfaces codé en REACT NODE et avec une bdd MySQL
+Projet final: Magazin en ligne avec 3 interfaces codé en REACT NODE et avec une bdd Mongo
+
 
 Le projet se deroula en plusiers temps:
 - V1 avoir une interface magazin avec 3 type de logins au niveau du code avec création d'un squellete de bdd
