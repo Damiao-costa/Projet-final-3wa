@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+body{
+    margin:0;
+    font-size: 1.2rem;
+    background: #fafafa;
+}
+
+.component{
+    text-align: center;
+}
+
+h1, h2, h3, h4, ul, li, a, p, input, label, button, div, footer{
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    color: #444;
+}
+
+h1{
+    text-align: center;
+    margin: 3%;
+}
+
+h2{
+    text-align: center;
+    margin: 3%;
+}
+
+ul{
+    list-style-type: none;
+}
+
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5rem;
+    background-color: lightblue;
+}
+
+nav a{
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+}
+
+nav a:hover {
+    color: #fafafa;
+    background: black;
+}
+
+nav a:active {
+    color: #fafafa;
+    background: black;
+}
+
+nav ul{
+    display: flex;
+    align-items: center;
+}
+
+nav li a{
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 1rem;
+    
+}
+
+ul li a:hover {
+    color: #fafafa;
+    background: black;
+}
+
+ul li a:active {
+    color: #fafafa;
+    background: black;
+}
+
+form{
+    width: 30rem;
+    margin: 0 auto;
+    padding: 3rem;
+    box-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.1);
+    border-radius: 1rem;
+    background: white;
+}
+
+input{
+    padding: 0.8rem 0.2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.4rem;
+    border: 0.1rem solid #ddd;
+    font-size: 1em;
+    width: 100%;
+}
+
+button{
+    margin-top: 2rem;
+    border-radius: 3rem;
+    margin-right: 100%;
+    margin-bottom: 1rem;
+    background: #FEE996;
+    border:0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.8em;
+    padding:1rem 1rem;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+}
+
+
+.Toastify__close-button{
+    margin-left: 30%;
+}
+
+.Toastify__toast-body{
+    padding: 1rem;
+}
+
+
+
+.catalogue{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-top: 5rem;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.product{
+    border-radius: 1rem;
+    background: lightblue;
+    text-align: left;
+    padding: 1rem;
+}
+
+footer{
+    text-align: center;
+    margin-top: 10rem;
+    color: black;
+}

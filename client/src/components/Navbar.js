@@ -1,11 +1,26 @@
+import { Outlet, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 export default function Navbar(){
-    return <nav>
+    const navigate = useNavigate();
+    const [cookies, removeCookie] = useCookies([]);
+    
+    //Fonction delete la cookie contenant le json web token et redirige vers la page login
+    const logOut = () => {
+        removeCookie("jwt");
+        navigate("/login");
+    };
+
+    return (
+    <>
+    <nav>
         <a href="/">Home</a>
         <ul>
-            <li><a href="/store">Store</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/signup">Sign up</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <a href="/store">Store Page</a>
+            <a href="" onClick={logOut}>Log out</a>
         </ul>
     </nav>
+    <Outlet />
+    </>
+    );
 }

@@ -1,42 +1,25 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Home from "./views/Home";
-import Login from "./views/Login";
-import Logout from "./views/Logout";
-import Signup from "./views/Signup";
-import Store from "./views/Store";
+import React from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Store from "./pages/Store";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-
-    let component;
-    
-    switch (window.location.pathname){
-        case "/":
-            component = <Home />
-            break
-        case "/login":
-            component = <Login />
-            break
-        case "/logout":
-            component = <Logout />
-            break
-        case "/signup":
-            component = <Signup />
-            break
-        case "/store":
-            component = <Store />
-            break
-        default:
-            component = <Home />
-    }
+//On a (pour l'instant) 4 routes avec une Bar de navigation qui se présente seulement si on est connecté par soit un nouveau compte ou un compte existant
+export default function App() {
     return (
-        <>
-            <Navbar />
-            <div className="component">
-                {component}
-            </div>
-       </>
-        )
+    <BrowserRouter>
+        <Routes>
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route element={<Navbar />}>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/store" element={<Store />} />
+            </Route>
+        </Routes>
+        <footer>@DamiaoCostaSantos, Developpeur Full Stack, All rights reserved</footer>
+    </BrowserRouter>
+    );
 }
-
-export default App

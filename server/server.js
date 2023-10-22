@@ -1,32 +1,43 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
+const cookieParser = require("cookie-parser");
+require('dotenv').config();
+
 const app = express();
-const mongoose = require('mongoose');
-const cors = require('cors');
-const routeStore = require('./routes/store.route');
-const cookieParser = require('cookie-parser');
 
+//On se connect au serveur (le port est dans le .env)
+app.listen(parseInt(process.env.hiddenBackUrl), (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Server Started Successfully.");
+    }
+});
 
+//On desactive le pluralize pour pouvoir mettre des nom de bdd singulier
 mongoose.pluralize(false);
 
-mongoose.connect(`mongodb://127.0.0.1:27017/Project_Store`, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(init())
-    .catch(error => {
-         console.log(error);
+//On se connect sur le serveur mongo (mis dans le .env)
+mongoose.connect(process.env.Mongo, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        console.log("DB Connetion Successfull");
+    })
+    .catch((err) => {
+        console.log(err.message);
     });
 
-async function init()
-{
-    //settings
-    app.use(cors());
-    app.use(express.json());
-    app.use(cookieParser());
+//Cors permet la communication du front end vers le back end et bloque l'accès à tout autre domaine d'interagir
+app.use(
+    cors({
+        origin: [process.env.hiddenFrontUrl],
+        methods: ["GET", "POST"],
+        credentials: true,
+    })
+);
 
-    //cookies
-    
-    
-    //routers
-    app.use(routeStore);
-    
-    //start
-    app.listen(5000,()=>{console.log("Le serveur est sur le port 5000")});
-}
+//On indique a l'application express d'utiliser des json pour communiquer les données de la base de données
+app.use(cookieParser());
+app.use(express.json());
+app.use("/", authRoutes);
