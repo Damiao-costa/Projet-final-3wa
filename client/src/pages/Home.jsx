@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -6,6 +6,7 @@ import axios from "axios";
 export default function Home() {
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [user,setUser] = useState('');
 
     //On lance le moment qu'on essaye de charger la page la fonction de verification qui se trouve dans le back office pour verifier que l'utilisateur est connecté
     useEffect(() => {
@@ -23,6 +24,8 @@ export default function Home() {
                 if (!data.status) {
                     removeCookie("jwt");
                     navigate("/login");
+                } else {
+                    setUser(data.user);
                 }
             }
         };

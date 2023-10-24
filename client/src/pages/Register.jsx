@@ -63,7 +63,7 @@ function Register() {
                 }
             />
             </div>
-            <button type="submit">Submit</button>
+            <button className="formButton" type="submit">Submit</button>
             <span>
             Déjà un compte ?<Link to="/login"> <u>Login ici</u></Link>
             </span>
