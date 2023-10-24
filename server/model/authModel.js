@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+//mongoose.set('sanitizeFilter', true); // SanitizeFilter change tout nom qui commence par $ en les metant dans un $eq pour prevenir des injections 
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -13,6 +14,8 @@ const userSchema = new mongoose.Schema({
         minlength:[6, 'Taille minimum est de 6 characters'],
         required: [true, "Password is Required"],
     },
+
+    type:String
 });
 
 userSchema.pre("save", async function (next) {

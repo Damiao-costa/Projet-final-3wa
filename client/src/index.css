@@ -31,6 +31,9 @@ ul{
     list-style-type: none;
 }
 
+.titleAdmin{
+    text-align: center;  
+}
 
 nav{
     display: flex;
@@ -44,7 +47,8 @@ nav a{
     text-transform: uppercase;
     font-weight: 900;
     font-size: 1.5rem;
-    padding: 1.5rem;
+    padding:1.5rem;
+    text-decoration: none;
 }
 
 nav a:hover {
@@ -67,7 +71,6 @@ nav li a{
     font-weight: 500;
     font-size: 1.5rem;
     padding: 1rem;
-    
 }
 
 ul li a:hover {
@@ -80,6 +83,9 @@ ul li a:active {
     background: black;
 }
 
+.container{
+    margin-top: 8%;
+}
 form{
     width: 30rem;
     margin: 0 auto;
@@ -92,17 +98,29 @@ form{
 input{
     padding: 0.8rem 0.2rem;
     margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     border-radius: 0.4rem;
     border: 0.1rem solid #ddd;
     font-size: 1em;
     width: 100%;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 button{
     margin-top: 2rem;
     border-radius: 3rem;
-    margin-right: 100%;
+    margin-right: 2%;
     margin-bottom: 1rem;
     background: #FEE996;
     border:0;
@@ -114,6 +132,10 @@ button{
     cursor: pointer;
 }
 
+.formButton{
+    margin-right: 100%;
+}
+
 
 .Toastify__close-button{
     margin-left: 30%;
@@ -122,8 +144,6 @@ button{
 .Toastify__toast-body{
     padding: 1rem;
 }
-
-
 
 .catalogue{
     display: grid;
@@ -146,4 +166,6 @@ footer{
     text-align: center;
     margin-top: 10rem;
     color: black;
+    background-color: lightblue;
+    padding: 1%;
 }

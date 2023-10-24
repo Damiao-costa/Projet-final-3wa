@@ -13,7 +13,7 @@ export default function Navbar(){
 
     return (
     <>
-    <nav>
+    <nav >
         <a href="/">Home</a>
         <ul>
             <a href="/store">Store Page</a>
