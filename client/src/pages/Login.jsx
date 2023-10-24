@@ -47,7 +47,7 @@ function Login() {
         <div className="container">
         <h1>Welcome to my Store</h1>
         <h2>Pour voir le catalogue avec les produits ils faut que vous vous connectez!</h2>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form className="login" onSubmit={(e) => handleSubmit(e)}>
             <div>
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" autoComplete="current-email"

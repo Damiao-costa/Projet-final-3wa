@@ -38,7 +38,7 @@ module.exports.catalogue = async (req,res) =>
 //Fonction pour changer les valeurs d'un produit dans la base de données
 module.exports.updateProduct = async (req,res) =>
 {
-    const { _id, Name, Price, Stock, Description, ListId } = req.body.object;
+    const { _id, Name, Price, Stock, Description, ListId } = req.body;
     try {
         const docs = await Store.updateOne({_id: _id},{Name,Price,Stock,Description,ListId});
         res.status(201).json({ docs });
@@ -62,14 +62,15 @@ module.exports.deleteProduct = async (req,res) =>
 }
 
 //Fonction pour ajouter un produit dans la base de données
-module.exports.addProduct = async (req,res) => {
-    const { _id, Name, Price, Stock, Description, ListId } = req.body;
-    try {
-        const docs = await Store.create({_id, Name, Price, Stock, Description, ListId});
-        res.status(201).json({ docs });
-    }catch(err){
-        const errors = handleErrors(err);
-        res.json({ errors, add: false });
-    }
-}
+module.exports.addProduct = async (req, res, next) => {
+    const { Name, Price, Stock, Description, ListId } = req.body;
 
+    try {
+        const docs = await Store.create({ Name, Price, Stock, Description, ListId: ListId});
+
+        res.status(201).json({ docs , created: true });
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.json({ errors, created: false });
+    }
+};

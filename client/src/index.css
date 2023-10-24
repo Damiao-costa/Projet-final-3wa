@@ -86,7 +86,7 @@ ul li a:active {
 .container{
     margin-top: 8%;
 }
-form{
+form.login{
     width: 30rem;
     margin: 0 auto;
     padding: 3rem;

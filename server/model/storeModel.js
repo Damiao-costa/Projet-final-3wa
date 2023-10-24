@@ -9,11 +9,15 @@ const catalogueSchema = new mongoose.Schema({
     Stock:Number,
     Description:String,
     ListId: {
-        type: String,
-        required: [true, "Listid must be required"],
+        type: Number,
+        required: [true, "Listid is required"],
         unique: true,
-        lowercase: true,
-    },
+    }
+});
+
+catalogueSchema.pre("save", async function (next) {
+    console.log(this)
+    next();
 });
 
 catalogueSchema.statics.catalogue = async function () {
