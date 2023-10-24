@@ -15,11 +15,6 @@ const catalogueSchema = new mongoose.Schema({
     }
 });
 
-catalogueSchema.pre("save", async function (next) {
-    console.log(this)
-    next();
-});
-
 catalogueSchema.statics.catalogue = async function () {
     // la méthode .find() du Modèle permet de récupérer les documents
     const store = await this.find({});

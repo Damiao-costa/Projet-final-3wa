@@ -147,7 +147,7 @@ export default function Store() {
 
                                 <label>ListId:</label>
                                 <input type="number" defaultValue={object.ListId} name="ListId"
-                                onChange={(e) => object.ListId = parseInt(e.target.value)}/>
+                                onChange={(e) => object.ListId = parseInt(e.target.value) || 0}/>
 
                                 <button type="submit">Edit</button>
                                 <button onClick={(e) => handleDelete(e,object._id)}>Delete</button>   
@@ -186,7 +186,7 @@ export default function Store() {
 
                         <label>ListId:</label>
                         <input type="number" defaultValue={values.ListId} name="ListId"
-                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value)})}/>
+                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0})}/>
 
                         <button type="submit">Ajouter</button>
                     </form>                     
