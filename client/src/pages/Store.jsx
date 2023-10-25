@@ -46,23 +46,30 @@ export default function Store() {
 
     const handleUpdate = async (e,object) => {
         e.preventDefault();
-        try {
-            const { data } = await axios.post(
-                "http://localhost:4000/update",
-                {
-                    ...object,
-                },
-                { withCredentials: true }
-            );
-            if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
-                if (data.errors) {
-                    generateError(data.errors);
-                } else {
-                    navigate(0);
+
+        if(object.ListId === null || object.ListId <= 0)
+        {
+            generateError("ListId is required et non negatif");
+        }else{
+            try {
+                const { data } = await axios.post(
+                    "http://localhost:4000/update",
+                    {
+                        ...object,
+                    },
+                    { withCredentials: true }
+                );
+                if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
+                    if (data.errors) {
+                        const { ListId } = data.errors;
+                        generateError(ListId);
+                    } else {
+                        navigate(0);
+                    }
                 }
+            } catch (ex) {
+                console.log(ex);
             }
-        } catch (ex) {
-            console.log(ex);
         }
     }
 
@@ -90,24 +97,29 @@ export default function Store() {
 
     const handleAdd = async (e,object) =>{
         e.preventDefault();
-        try {
-            const { data } = await axios.post(
-                "http://localhost:4000/add",
-                {
-                    ...object,
-                },
-                { withCredentials: true }
-            );
-            if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
-                if (data.errors) {
-                    const { ListId } = data.errors;
-                    generateError(ListId);
-                } else {
-                    navigate(0);
+        if(object.ListId === null || object.ListId <= 0)
+        {
+            generateError("ListId is required");
+        }else{
+            try {
+                const { data } = await axios.post(
+                    "http://localhost:4000/add",
+                    {
+                        ...object,
+                    },
+                    { withCredentials: true }
+                );
+                if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
+                    if (data.errors) {
+                        const { ListId } = data.errors;
+                        generateError(ListId);
+                    } else {
+                        navigate(0);
+                    }
                 }
+            } catch (ex) {
+                console.log(ex);
             }
-        } catch (ex) {
-            console.log(ex);
         }
     }
 
@@ -147,7 +159,7 @@ export default function Store() {
 
                                 <label>ListId:</label>
                                 <input type="number" defaultValue={object.ListId} name="ListId"
-                                onChange={(e) => object.ListId = parseInt(e.target.value) || 0}/>
+                                onChange={(e) => object.ListId = parseInt(e.target.value) || null}/>
 
                                 <button type="submit">Edit</button>
                                 <button onClick={(e) => handleDelete(e,object._id)}>Delete</button>   
@@ -186,7 +198,7 @@ export default function Store() {
 
                         <label>ListId:</label>
                         <input type="number" defaultValue={values.ListId} name="ListId"
-                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0})}/>
+                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || false})}/>
 
                         <button type="submit">Ajouter</button>
                     </form>                     

@@ -39,6 +39,7 @@ module.exports.catalogue = async (req,res) =>
 module.exports.updateProduct = async (req,res) =>
 {
     const { _id, Name, Price, Stock, Description, ListId } = req.body;
+
     try {
         const docs = await Products.updateOne({_id: _id},{Name,Price,Stock,Description,ListId});
         res.status(201).json({ docs });

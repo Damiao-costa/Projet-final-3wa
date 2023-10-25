@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
 
 productSchema.statics.catalogue = async function () {
     // la méthode .find() du Modèle permet de récupérer les documents
-    const produits = await this.find({});
+    const produits = await this.find({}).sort({ListId: 1});
     if (produits) {
         return produits;
     }
