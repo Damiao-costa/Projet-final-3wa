@@ -1,11 +1,11 @@
-const Store = require('../model/storeModel');
+const Products = require('../model/productsModel');
 
 //Fonction pour ajouter des commentaires personalisé aux erreurs customisé
 const handleErrors = (err) => {
     let errors = { data: "" , ListId: "" };
 
     console.log(err);
-    if (err.message === "Could not retrieve from store") {
+    if (err.message === "Could not retrieve from Products") {
         errors.data = "Database Error could not retrieve products";
     }
 
@@ -14,7 +14,7 @@ const handleErrors = (err) => {
         return errors;
     }
 
-    if (err.message.includes("store validation failed")) {
+    if (err.message.includes("products validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {
         errors[properties.path] = properties.message;
         });
@@ -27,7 +27,7 @@ const handleErrors = (err) => {
 module.exports.catalogue = async (req,res) =>
 {
     try {
-        const docs = await Store.catalogue({});
+        const docs = await Products.catalogue({});
         res.json(docs);
     } catch (err) {
         const errors = handleErrors(err);
@@ -40,7 +40,7 @@ module.exports.updateProduct = async (req,res) =>
 {
     const { _id, Name, Price, Stock, Description, ListId } = req.body;
     try {
-        const docs = await Store.updateOne({_id: _id},{Name,Price,Stock,Description,ListId});
+        const docs = await Products.updateOne({_id: _id},{Name,Price,Stock,Description,ListId});
         res.status(201).json({ docs });
     }catch(err){
         const errors = handleErrors(err);
@@ -53,7 +53,7 @@ module.exports.deleteProduct = async (req,res) =>
 {
     const {id} = req.body;
     try {
-        const docs = await Store.deleteOne({_id: id});
+        const docs = await Products.deleteOne({_id: id});
         res.status(201).json({ docs });
     }catch(err){
         const errors = handleErrors(err);
@@ -66,7 +66,7 @@ module.exports.addProduct = async (req, res, next) => {
     const { Name, Price, Stock, Description, ListId } = req.body;
 
     try {
-        const docs = await Store.create({ Name, Price, Stock, Description, ListId: ListId});
+        const docs = await Products.create({ Name, Price, Stock, Description, ListId: ListId});
 
         res.status(201).json({ docs , created: true });
     } catch (err) {
