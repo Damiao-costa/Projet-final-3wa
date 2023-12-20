@@ -14,10 +14,10 @@ export default function Navbar(){
     return (
     <>
     <nav >
-        <a href="/">Home</a>
         <ul>
+            <a href="/">Home</a>
             <a href="/store">Store Page</a>
-            <a href="" onClick={logOut}>Log out</a>
+            <a href="/" onClick={logOut}>Log out</a>
         </ul>
     </nav>
     <Outlet />

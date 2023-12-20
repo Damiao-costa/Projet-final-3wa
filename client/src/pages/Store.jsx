@@ -141,23 +141,23 @@ export default function Store() {
                     let name =
                         <li key={object.ListId} className='product'>
                             <form onSubmit={(e) => handleUpdate(e,object)}>
-                                <label>Nom:</label>
+                                <label htmlFor="Name">Nom:</label>
                                 <input defaultValue={object.Name} name="Name" 
                                 onChange={(e) => object.Name = e.target.value}/>
 
-                                <label>Prix:</label>
+                                <label htmlFor="Price">Prix:</label>
                                 <input type="number" defaultValue={object.Price} name="Price" 
                                 onChange={(e) => object.Price = parseInt(e.target.value) || 0}/>
 
-                                <label>Stock:</label>
+                                <label htmlFor="Stock">Stock:</label>
                                 <input type="number" defaultValue={object.Stock} name="Stock" 
                                 onChange={(e) => object.Stock = parseInt(e.target.value) || 0}/>
 
-                                <label>Description:</label>
+                                <label htmlFor="Description">Description:</label>
                                 <input defaultValue={object.Description} name="Description" 
                                 onChange={(e) => object.Description = e.target.value}/>
 
-                                <label>ListId:</label>
+                                <label htmlFor="ListId">ListId:</label>
                                 <input type="number" defaultValue={object.ListId} name="ListId"
                                 onChange={(e) => object.ListId = parseInt(e.target.value) || null}/>
 
