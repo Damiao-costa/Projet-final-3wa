@@ -46,7 +46,7 @@ function Register() {
     return (
         <div className="container">
         <h1>Register Account</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form className="login" onSubmit={(e) => handleSubmit(e)}>
             <div>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" autoComplete="current-email"

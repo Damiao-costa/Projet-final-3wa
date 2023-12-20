@@ -10,7 +10,7 @@ export default function Store() {
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [docs,setDocs] = useState([]); //La valeur qui contient les données de la bdd pour les produits
     const [user,setUser] = useState('');
-    const [values,setValues] = useState({ Name: "", Price: 0, Stock: 0, Description: "",ListId: 1 });
+    const [values,setValues] = useState({ Name: "", Price: 0, Stock: 0, Description: "",ListId: null });
 
     //On lance le moment qu'on essaye de charger la page la fonction de verification qui se trouve dans le back office pour verifier que l'utilisateur est connecté
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Store() {
                 {                       //Si tout les verifications se passe sans probléme on envoye une demande pour récupérer les données des produits via axios
                     await axios.get("http://localhost:4000/store")
                         .then((res)=>setDocs(res.data));
-                    setUser(data.user);
+                        setUser(data.user);
                 }
             }
         };
@@ -46,24 +46,30 @@ export default function Store() {
 
     const handleUpdate = async (e,object) => {
         e.preventDefault();
-        
-        try {
-            const { data } = await axios.post(
-                "http://localhost:4000/update",
-                {
-                    object,
-                },
-                { withCredentials: true }
-            );
-            if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
-                if (data.errors) {
-                    generateError(data.errors);
-                } else {
-                    navigate(0);
+
+        if(object.ListId === null || object.ListId <= 0)
+        {
+            generateError("ListId is required et non negatif");
+        }else{
+            try {
+                const { data } = await axios.post(
+                    "http://localhost:4000/update",
+                    {
+                        ...object,
+                    },
+                    { withCredentials: true }
+                );
+                if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
+                    if (data.errors) {
+                        const { ListId } = data.errors;
+                        generateError(ListId);
+                    } else {
+                        navigate(0);
+                    }
                 }
+            } catch (ex) {
+                console.log(ex);
             }
-        } catch (ex) {
-            console.log(ex);
         }
     }
 
@@ -89,26 +95,31 @@ export default function Store() {
         }
     }
 
-    const handleAdd = async (e) =>{
+    const handleAdd = async (e,object) =>{
         e.preventDefault();
-        try {
-            const { data } = await axios.post(
-                "http://localhost:4000/add",
-                {
-                    ...values,
-                },
-                { withCredentials: true }
-            );
-            if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
-                if (data.errors) {
-                    const { ListId } = data.errors;
-                    generateError(ListId);
-                } else {
-                    navigate(0);
+        if(object.ListId === null || object.ListId <= 0)
+        {
+            generateError("ListId is required");
+        }else{
+            try {
+                const { data } = await axios.post(
+                    "http://localhost:4000/add",
+                    {
+                        ...object,
+                    },
+                    { withCredentials: true }
+                );
+                if (data) {  //Si la réponse contient des erreurs on les envoye au utilisateur sinon on navigate vers la page d'acceuil et l'utilisateur seras en mode connecté
+                    if (data.errors) {
+                        const { ListId } = data.errors;
+                        generateError(ListId);
+                    } else {
+                        navigate(0);
+                    }
                 }
+            } catch (ex) {
+                console.log(ex);
             }
-        } catch (ex) {
-            console.log(ex);
         }
     }
 
@@ -128,31 +139,32 @@ export default function Store() {
             <ul className="catalogue">
                 {user === "admin" ? docs.map((object)=>{
                     let name =
-                    <li key={object.ListId} className='product'>
-                        <label>Nom:</label>
-                        <input defaultValue={object.Name} name="Name" 
-                        onChange={(e) => object.Name = e.target.value}/>
+                        <li key={object.ListId} className='product'>
+                            <form onSubmit={(e) => handleUpdate(e,object)}>
+                                <label htmlFor="Name">Nom:</label>
+                                <input defaultValue={object.Name} name="Name" 
+                                onChange={(e) => object.Name = e.target.value}/>
 
-                        <label>Prix:</label>
-                        <input type="number" defaultValue={object.Price} name="Price" 
-                        onChange={(e) => object.Price = parseInt(e.target.value) || 0}/>
+                                <label htmlFor="Price">Prix:</label>
+                                <input type="number" defaultValue={object.Price} name="Price" 
+                                onChange={(e) => object.Price = parseInt(e.target.value) || 0}/>
 
-                        <label>Stock:</label>
-                        <input type="number" defaultValue={object.Stock} name="Stock" 
-                        onChange={(e) => object.Stock = parseInt(e.target.value) || 0}/>
+                                <label htmlFor="Stock">Stock:</label>
+                                <input type="number" defaultValue={object.Stock} name="Stock" 
+                                onChange={(e) => object.Stock = parseInt(e.target.value) || 0}/>
 
-                        <label>Description:</label>
-                        <input defaultValue={object.Description} name="Description" 
-                        onChange={(e) => object.Description = e.target.value}/>
+                                <label htmlFor="Description">Description:</label>
+                                <input defaultValue={object.Description} name="Description" 
+                                onChange={(e) => object.Description = e.target.value}/>
 
-                        <label>ListId:</label>
-                        <input type="number" defaultValue={object.ListId} name="ListId"
-                        onChange={(e) => object.ListId = parseInt(e.target.value) || 0}/>
+                                <label htmlFor="ListId">ListId:</label>
+                                <input type="number" defaultValue={object.ListId} name="ListId"
+                                onChange={(e) => object.ListId = parseInt(e.target.value) || null}/>
 
-                        <button onClick={(e) => handleUpdate(e,object)}>Edit</button>
-                        <button onClick={(e) => handleDelete(e,object._id)}>Delete</button>                        
-                    </li>
-
+                                <button type="submit">Edit</button>
+                                <button onClick={(e) => handleDelete(e,object._id)}>Delete</button>   
+                            </form>                     
+                        </li>
                 return name;})
                 : docs.map((object)=>{
                     let name = 
@@ -167,27 +179,30 @@ export default function Store() {
                 {user === "admin" ? 
                 <li key="newProductBox" className='product'>
                     <h3>Nouveau Produit</h3>
-                    <label>Nom:</label>
-                    <input defaultValue={values.Name} name="Name" 
-                    onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}/>
+                    <form onSubmit={(e) => handleAdd(e,values)}>
+                        <label>Nom:</label>
+                        <input defaultValue={values.Name} name="Name" 
+                        onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}/>
 
-                    <label>Prix:</label>
-                    <input type="number" defaultValue={values.Price} name="Price" 
-                    onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0})}/>
+                        <label>Prix:</label>
+                        <input type="number" defaultValue={values.Price} name="Price" 
+                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0})}/>
 
-                    <label>Stock:</label>
-                    <input type="number" defaultValue={values.Stock} name="Stock" 
-                    onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0 })}/>
+                        <label>Stock:</label>
+                        <input type="number" defaultValue={values.Stock} name="Stock" 
+                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0 })}/>
 
-                    <label>Description:</label>
-                    <input defaultValue={values.Description} name="Description" 
-                    onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}/>
+                        <label>Description:</label>
+                        <input defaultValue={values.Description} name="Description" 
+                        onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}/>
 
-                    <label>ListId:</label>
-                    <input type="number" defaultValue={values.ListId} name="ListId"
-                    onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || 0 })}/>
+                        <label>ListId:</label>
+                        <input type="number" defaultValue={values.ListId} name="ListId"
+                        onChange={(e) => setValues({ ...values, [e.target.name]: parseInt(e.target.value) || false})}/>
 
-                    <button className="buttonAdd" onClick={(e) => handleAdd(e)}>Ajouter Ce Produit</button>
+                        <button type="submit">Ajouter</button>
+                    </form>                     
+
                 </li>: ""}
             </ul>
         </div>

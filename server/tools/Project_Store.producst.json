@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "6537ec6630db4d702f7d7d48"
+  },
+  "Name": "First product",
+  "Price": 5,
+  "Stock": 10,
+  "Description": "first product of the store",
+  "ListId": 1,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6537eeed9581e506997e924f"
+  },
+  "Name": "Second Product",
+  "Price": 0,
+  "Stock": 0,
+  "Description": "second product of the store",
+  "ListId": 3,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6537ef3329df2114ee018d5f"
+  },
+  "Name": "Third Product",
+  "Price": 0,
+  "Stock": 0,
+  "Description": "Third product of the store",
+  "ListId": 2,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6538ea20e6fd3586c8b2579a"
+  },
+  "Name": "Nouveau",
+  "Price": 0,
+  "Stock": 0,
+  "Description": "",
+  "ListId": 0,
+  "__v": 0
+}]
