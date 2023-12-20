@@ -39,7 +39,7 @@ export default function Home() {
         <div className="mainSection">
             <h1>Welcome to my Store!</h1>
             <div id="moveUp">
-                <img src={welcome} alt="Welcome Image" className="welcome"></img>
+                <img src={welcome} alt="Welcome To My Store" className="welcome"></img>
             </div>
             <h2>In this store we feature a variety of products for any occasion!</h2>
             <div className="textBox">
